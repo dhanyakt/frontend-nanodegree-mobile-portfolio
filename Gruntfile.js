@@ -7,6 +7,16 @@ module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
+        inline: {
+            build: {
+                options: {
+                    cssmin: true
+                },
+                src: 'index.html',
+                dest: 'build/'
+            }
+        },
+
         pagespeed: {
             options: {
                 nokey: true,
@@ -26,6 +36,8 @@ module.exports = function(grunt) {
         },
     });
 
+    grunt.loadNpmTasks('grunt-inline');
+
     grunt.registerTask('psi-ngrok','Run pagespeed with ngrok', function() {
         var done = this.async();
         var port = 8000;
@@ -41,5 +53,5 @@ module.exports = function(grunt) {
         });
     });
 
-    grunt.registerTask('default',['psi-ngrok']);
+    grunt.registerTask('default',['inline','psi-ngrok']);
 };
