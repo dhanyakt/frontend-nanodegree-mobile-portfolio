@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/dhanyakt/frontend-nanodegree-mobile-portfolio.git"
   },
-  "author": "dhanya",
+  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dhanyakt/frontend-nanodegree-mobile-portfolio/issues"
@@ -18,7 +18,10 @@
   "homepage": "https://github.com/dhanyakt/frontend-nanodegree-mobile-portfolio#readme",
   "devDependencies": {
     "grunt": "^1.0.1",
+    "grunt-inline": "^0.3.6",
+    "grunt-mkdir": "^1.0.0",
     "grunt-pagespeed": "^2.0.1",
+    "grunt-responsive-images": "^0.1.9",
     "load-grunt-tasks": "^3.5.2",
     "ngrok": "^2.2.2"
   }

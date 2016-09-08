@@ -7,10 +7,62 @@ module.exports = function(grunt) {
     require('load-grunt-tasks')(grunt);
 
     grunt.initConfig({
+        responsive_images: {
+          dev: {
+            options: {
+              engine: 'gm',
+              sizes: [{
+                name:"small",
+                width:400,
+                quality:60
+
+              },
+              {
+                name:"medium",
+                width:650,
+                quality:60
+              },
+              {
+                name:"large",
+                width:800,
+                quality:30,
+                suffix:"1x"
+              },
+              {
+                name:"large",
+                width:1024,
+                suffix:"2x",
+                quality:30
+
+              }]
+            },
+
+            files: [{
+              expand: true,
+              src: ['*.{gif,webp}'],
+              cwd: 'views/images/',
+              dest: 'views/images/images_src'
+            }]
+          }
+        },
+
+        clean: {
+            folder: ['views/images/images_src']
+        },
+
+        mkdir: {
+            dev: {
+                options: {
+                    create: ['views/images/images_src']
+                },
+            },
+        },
+
         inline: {
             build: {
                 options: {
-                    cssmin: true
+                    cssmin: true,
+                    uglify: true
                 },
                 src: 'index.html',
                 dest: 'build/'
@@ -36,6 +88,9 @@ module.exports = function(grunt) {
         },
     });
 
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-mkdir');
+    grunt.loadNpmTasks('grunt-responsive-images');
     grunt.loadNpmTasks('grunt-inline');
 
     grunt.registerTask('psi-ngrok','Run pagespeed with ngrok', function() {
@@ -53,5 +108,5 @@ module.exports = function(grunt) {
         });
     });
 
-    grunt.registerTask('default',['inline','psi-ngrok']);
+    grunt.registerTask('default',['clean','mkdir','responsive_images','inline','psi-ngrok']);
 };
