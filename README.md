@@ -20,6 +20,8 @@
 2. Added the transform properties in stylesheet
 3. Generated the dynamically pizza according to browser window resolution
 4. Optimized the for loops
+5. Addded viewport and charset
+6. Optimized image in pizza.html
 
 ***
 [Link to my project](https://dhanyakt.github.io/frontend-nanodegree-mobile-portfolio/).
