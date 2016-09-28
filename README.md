@@ -16,12 +16,8 @@
 2. Added will-change property to style page.
 
 ### Changes
-1. Optimized the image in index.html.
-2. Added the transform properties in stylesheet
-3. Generated the dynamically pizza according to browser window resolution
-4. Optimized the for loops
-5. Addded viewport and charset
-6. Optimized image in pizza.html
+1. Optimized the for loops.
+2. Optimized 60fps for scrolling and resize.
 
 ***
 [Link to my project](https://dhanyakt.github.io/frontend-nanodegree-mobile-portfolio/).
