@@ -489,10 +489,10 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 // Assigned items length to a var to avoid repetition.
   var items = document.getElementsByClassName('mover');
-  var items_len = items.length;
-  var phase = Math.sin((document.body.scrollTop / 1250));
-  for (var i = 0; i < items_len; i++) {
-    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
+  var len = items.length;
+  var scrollTop = Math.sin((document.body.scrollTop / 1250));
+  for (var i = 0; i < len; i++) {
+    items[i].style.left = items[i].basicLeft + 100 * scrollTop + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -509,26 +509,20 @@ function updatePositions() {
 window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
-// Generates no:of pizza according to browser window resolution.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  var height = window.screen.height;
-  var availHeight = window.screen.availHeight;
-  var movingPizzas = document.getElementById("movingPizzas1");
-  if(availHeight !== height) {
-    var row = height / 100;
-    var pizza_num = row * cols;
-    for(var i = 0, elem; i < pizza_num; i++) {
-      elem = document.createElement('img');
-      elem.className = 'mover';
-      elem.src = "images/pizza.png";
-      elem.style.height = "100px";
-      elem.style.width = "73.333px";
-      elem.basicLeft = (i % cols) * s;
-      elem.style.top = (Math.floor(i / cols) * s) + 'px';
-      movingPizzas.appendChild(elem);
-    }
+  var movingPizzas = document.getElementById("movingPizzas");
+  var elem;
+  for (var i = 0; i < 25; i++) {
+    elem = document.createElement('img');
+    elem.className = 'mover';
+    elem.src = "images/pizza.png";
+    elem.style.height = "100px";
+    elem.style.width = "73.333px";
+    elem.basicLeft = (i % cols) * s;
+    elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    movingPizzas.appendChild(elem);
   }
   updatePositions();
 });
