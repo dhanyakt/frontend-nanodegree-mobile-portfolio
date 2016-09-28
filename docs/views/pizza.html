@@ -106,7 +106,13 @@
         <div id="randomPizzas" class="row">
           <div id="pizza0" class="randomPizzaContainer" style="width:33.33%; height: 325px;">
             <div style="width:35%">
-              <img src="images/pizza.png" class="img-responsive">
+              <figure>
+                <picture>
+                <source srcset="views/images_src/pizzeria-large2x.jpg 2x, views/images_src/pizzeria-large1x.webp 1x" media="(min-width:800px)"/>
+                <source srcset="views/images_src/pizzeria-medium.jpg" media="(min-width:650px)"/>
+                <img src="views/images_src/pizzeria-small.jpg" media="(max-width:599px)" alt="Cam's Pizzeria">
+                </picture>
+              </figure>
             </div>
             <div style="width:65%">
               <h4>The Udacity Special</h4>
