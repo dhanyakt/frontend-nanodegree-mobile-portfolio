@@ -405,16 +405,15 @@ var resizePizzas = function(size) {
   // Changes the value for the size of the pizza above the slider
   // Changed querySelector to WebAPI and assigned the value in a var for optimization.
   function changeSliderLabel(size) {
-    var pizza_size = document.getElementById("pizzaSize");
     switch(size) {
       case "1":
-        pizza_size.innerHTML = "Small";
+        document.getElementById("pizzaSize").innerHTML = "Small";
         return;
       case "2":
-        pizza_size.innerHTML = "Medium";
+        document.getElementById("pizzaSize").innerHTML = "Medium";
         return;
       case "3":
-        pizza_size.innerHTML = "Large";
+        document.getElementById("pizzaSize").innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -425,6 +424,7 @@ var resizePizzas = function(size) {
 
     // Changes the slider value to a percent width
     function changePizzaSizes (size) {
+      var randomPizzas = document.getElementsByClassName("randomPizzaContainer");
       switch(size) {
         case "1":
           return 25;
@@ -436,7 +436,6 @@ var resizePizzas = function(size) {
           console.log("bug in sizeSwitcher");
       }
 
-      var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
       var pizza_len = randomPizzas.length;
       for (var i = 0; i < pizza_len; i++){
         randomPizzas[i].style.width = newwidth + " % ";
@@ -449,7 +448,8 @@ var resizePizzas = function(size) {
   window.performance.mark("mark_end_resize");
   window.performance.measure("measure_pizza_resize", "mark_start_resize", "mark_end_resize");
   var timeToResize = window.performance.getEntriesByName("measure_pizza_resize");
-  console.log("Time to resize pizzas: " + timeToResize[timeToResize.length-1].duration + "ms");
+//  console.log("Time to resize pizzas: " + timeToResize[timeToResize.length-1].duration + "ms");
+  console.log("Time to resize pizzas: " + timeToResize[0].duration + "ms");
 };
 
 window.performance.mark("mark_start_generating"); // collect timing data
@@ -487,6 +487,7 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
+
 // Assigned items length to a var to avoid repetition.
   var items = document.getElementsByClassName('mover');
   var len = items.length;
@@ -512,17 +513,15 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  var movingPizzas = document.getElementById("movingPizzas");
-  var elem;
   for (var i = 0; i < 25; i++) {
-    elem = document.createElement('img');
+    var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    movingPizzas.appendChild(elem);
+    document.querySelector("#movingPizzas1").appendChild(elem);
   }
   updatePositions();
 });
