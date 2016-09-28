@@ -449,11 +449,12 @@ var resizePizzas = function(size) {
   window.performance.measure("measure_pizza_resize", "mark_start_resize", "mark_end_resize");
   var timeToResize = window.performance.getEntriesByName("measure_pizza_resize");
 //  console.log("Time to resize pizzas: " + timeToResize[timeToResize.length-1].duration + "ms");
-console.log("Time to resize pizzas :" + timeToResize[0].duration + "ms");
-/*  for(var i=0; i < timeToResize.length; ++i) {
+//console.log("Time to resize pizzas :" + timeToResize[0].duration + "ms");
+  var timeLen = timeToResize.length;
+  for(var i=0; i < timeLen; ++i) {
     var req = timeToResize[i];
     console.log("Time to resize pizzas: " + req.duration + "ms");
-  }*/
+  }
 };
 
 window.performance.mark("mark_start_generating"); // collect timing data
@@ -527,5 +528,5 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
-  requestAnimationFrame(updatePositions);
+  updatePositions();
 });
