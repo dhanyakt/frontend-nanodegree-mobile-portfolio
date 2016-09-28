@@ -449,7 +449,11 @@ var resizePizzas = function(size) {
   window.performance.measure("measure_pizza_resize", "mark_start_resize", "mark_end_resize");
   var timeToResize = window.performance.getEntriesByName("measure_pizza_resize");
 //  console.log("Time to resize pizzas: " + timeToResize[timeToResize.length-1].duration + "ms");
-  console.log("Time to resize pizzas: " + timeToResize[0].duration + "ms");
+console.log("Time to resize pizzas :" + timeToResize[0].duration + "ms");
+/*  for(var i=0; i < timeToResize.length; ++i) {
+    var req = timeToResize[i];
+    console.log("Time to resize pizzas: " + req.duration + "ms");
+  }*/
 };
 
 window.performance.mark("mark_start_generating"); // collect timing data
@@ -491,9 +495,9 @@ function updatePositions() {
 // Assigned items length to a var to avoid repetition.
   var items = document.getElementsByClassName('mover');
   var len = items.length;
-  var scrollTop = Math.sin((document.body.scrollTop / 1250));
+  var phase = Math.sin((document.body.scrollTop / 1250));
   for (var i = 0; i < len; i++) {
-    items[i].style.left = items[i].basicLeft + 100 * scrollTop + 'px';
+    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -523,5 +527,5 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
-  updatePositions();
+  requestAnimationFrame(updatePositions);
 });
