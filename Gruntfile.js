@@ -6,6 +6,7 @@ module.exports = function(grunt) {
 
     require('load-grunt-tasks')(grunt);
 
+// configuration
     grunt.initConfig({
         responsive_images: {
           dev: {
@@ -15,31 +16,17 @@ module.exports = function(grunt) {
                 name:"small",
                 width:400,
                 quality:60
-
               },
               {
                 name:"medium",
-                width:650,
-                quality:60
-              },
-              {
-                name:"large",
                 width:800,
-                quality:30,
-                suffix:"1x"
-              },
-              {
-                name:"large",
-                width:1024,
-                suffix:"2x",
-                quality:30
-
+                quality:60
               }]
             },
 
             files: [{
               expand: true,
-              src: ['*.{gif,webp}'],
+              src: ['*.{gif,jpg}'],
               cwd: 'views/images/',
               dest: 'views/images/images_src'
             }]
@@ -50,25 +37,80 @@ module.exports = function(grunt) {
             folder: ['views/images/images_src']
         },
 
+// Creating new folder
         mkdir: {
             dev: {
                 options: {
-                    create: ['views/images/images_src']
+                    create: ['views/images/images_src','build/views']
                 },
             },
         },
+// css minification
+        cssmin: {
+            first_target: {
+                files: [{
+                    expand: true,
+                    cwd: 'views/css/',
+                    src: ['*.css', '!*.min.css'],
+                    dest: 'views/css/',
+                    ext: '.min.css'
+                }]
+            },
+            second_target: {
+                files: [{
+                    expand: true,
+                    cwd: 'css/',
+                    src: ['*.css', '!*.min.css'],
+                    dest: 'css/',
+                    ext: '.min.css'
+                }]
+            }
+        },
 
+// Inlining css
         inline: {
             build: {
                 options: {
                     cssmin: true,
                     uglify: true
                 },
-                src: 'index.html',
+                src: ['*.html'],
                 dest: 'build/'
             }
         },
 
+// JS minification
+        uglify: {
+            first_target: {
+                files: {
+                    'views/js/main.min.js':['views/js/main.js']
+                }
+            },
+            second_target: {
+                files: {
+                    'js/perfmatters.min.js': ['js/perfmatters.js']
+                }
+            },
+        },
+
+// HTML minification
+        htmlmin: {
+            build: {
+                options: {
+                    removeComments:true,
+                    collapseWhitespace:true
+                },
+                files: {
+                    'build/index.html':'build/index.html',
+                    'build/project-2048.html': 'build/project-2048.html',
+                    'build/project-mobile.html': 'build/project-mobile.html',
+                    'build/project-webperf.html': 'build/project-webperf.html',
+                    'build/views/pizza.html': 'build/views/pizza.html'
+                }
+            }
+        },
+
+// Plugin to know the pagespeed score in mobile and desktop.
         pagespeed: {
             options: {
                 nokey: true,
@@ -88,11 +130,16 @@ module.exports = function(grunt) {
         },
     });
 
+// Grunt tasks
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-mkdir');
     grunt.loadNpmTasks('grunt-responsive-images');
     grunt.loadNpmTasks('grunt-inline');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
 
+// Integration of ngrok with pagespeed.
     grunt.registerTask('psi-ngrok','Run pagespeed with ngrok', function() {
         var done = this.async();
         var port = 8000;
@@ -108,5 +155,6 @@ module.exports = function(grunt) {
         });
     });
 
-    grunt.registerTask('default',['clean','mkdir','responsive_images','inline','psi-ngrok']);
+// Grunt tasks
+    grunt.registerTask('default',['clean','mkdir','responsive_images','uglify','cssmin','inline','htmlmin','psi-ngrok']);
 };

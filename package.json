@@ -18,6 +18,9 @@
   "homepage": "https://github.com/dhanyakt/frontend-nanodegree-mobile-portfolio#readme",
   "devDependencies": {
     "grunt": "^1.0.1",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-htmlmin": "^2.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
     "grunt-inline": "^0.3.6",
     "grunt-mkdir": "^1.0.0",
     "grunt-pagespeed": "^2.0.1",
