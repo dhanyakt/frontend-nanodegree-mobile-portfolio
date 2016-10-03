@@ -497,17 +497,19 @@ function updatePositions() {
 /* Added Web API and moved and length is assigned to var
  *outside the loop so this will avoid the calculation of each time
  *and accessing the DOM.
- *Removed the value(i%5) as this gives only five 5 unique values as this will
- *not make much difference in the movement of the pizza and finally
- *discarded the phase var and did the movement of the pizza in the var
- *named top.All these add up to better performance.
+ *
  */
 
   var items = document.getElementsByClassName('mover');
   var itemsLen = items.length;
   var top = Math.sin((document.body.scrollTop / 1250));
-  for (var i = 0; i < itemsLen; i++) {
-    items[i].style.left = items[i].basicLeft + 100 * top + 'px';
+  var phase = [];
+  for(var i = 0; i < 5; i++) {
+    phase.push(Math.sin(top + i) * 100);
+  }
+
+for (var i = 0, max = itemsLen; i < max; i++) {
+    items[i].style.left = items[i].basicLeft + phase[i % 5] + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.

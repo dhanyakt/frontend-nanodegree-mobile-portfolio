@@ -83,12 +83,12 @@ module.exports = function(grunt) {
         uglify: {
             first_target: {
                 files: {
-                    'views/js/main.min.js':['views/js/main.js']
+                    'build/views/js/main.min.js':['views/js/main.js']
                 }
             },
             second_target: {
                 files: {
-                    'js/perfmatters.min.js': ['js/perfmatters.js']
+                    'build/js/perfmatters.min.js': ['js/perfmatters.js']
                 }
             },
         },
